@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +16,15 @@
     #mainbox {
         border-style: solid;
         border-width: 5px;
-        width:660px;
+        width: 630px;
         height: 400px;
+        
         
     }
 
     #iframe {
         overflow: hidden;
+        z-index: -100;
     }
 
     #url {
@@ -36,15 +39,22 @@
         min-height: 2000px;
     }
 
-    .top-10 { margin-top:130px; }
+    /* centered columns styles */
+    .row-centered {
+        text-align:center;
+    }
+    .col-centered {
+        display:inline-block;
+        float:none;
+        /* reset the text-align */
+        text-align:left;
+        /* inline-block space fix */
+        margin-right:-4px;
+    }
     </style>
 </head>
 <body>
-<script>
 
-var url = 'https://s3-us-west-1.amazonaws.com/hunters-point/index.html';
-
-</script>
 <div class="container">
 <div class="row">
 <div class="col-md-12">
@@ -54,14 +64,14 @@ var url = 'https://s3-us-west-1.amazonaws.com/hunters-point/index.html';
     <form class="form-horizontal-form-inline" role="form">
         <div class="form-group-lg">
             <div class="col-lg-8">
-                <input type="text" class="form-control" id="url" placeholder="Enter URL">
+                <input type="text" class="form-control" id="url" placeholder="Enter URL" value="http://data.nbcstations.com/national/KNTV/scottpham/birdstrike-chart-2/child.html">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-lg-2">
                 <div class="input-group">
-                  <input class="form-control" type="number" id="height" placeholder="Enter Height">
+                  <input class="form-control" type="number" id="height" placeholder="Enter Height" value=400>
                     <div class="input-group-addon">px</div>
                 </div>
             </div>
@@ -79,18 +89,23 @@ var url = 'https://s3-us-west-1.amazonaws.com/hunters-point/index.html';
         <textarea type="text" class="form-control" id="textBox" rows = 4></textarea>
 </div>
  
-    
+<label class="radio-inline">
+    <input type="radio" name="optionsRadios" id="mobile" value=300>Mobile(300px)</label>
+<label class="radio-inline">        
+    <input type="radio" name="optionsRadios" id="article" value=622 checked>Article(622px)</label>
+<!--<label class="radio-inline">
+    <input type="radio" name="optionsRadios" id="fullWidth" value="100%">100%(use this with a phone or tablet)</label> -->
 
 
 <div class="row"> 
-    <div class="col-md-7">
-        <h2 class="text-center">650 px wide</h2>
+    <div class="col-md-8">
+        <h2 class="text-center" id="boxLabel">622px wide</h2>
     </div>
 </div>
 <div class = "row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <div id="mainbox">
-            <iframe id="iframe" src="http://amazon.com" scrolling="no" frameborder="0" width="650px" height="650px" overflow="hidden"></iframe>
+            <iframe id="iframe" class="center-block" src="" scrolling="no" frameborder="0" width="622px" height="400px" overflow="hidden"></iframe>
         </div>
     </div>
 </div>
@@ -98,22 +113,44 @@ var url = 'https://s3-us-west-1.amazonaws.com/hunters-point/index.html';
 <script>
 
 $(document).ready(function(){
-
+    //bump up mainbox height
     var initialHeight = $("#mainbox").height();
-
     $("#mainbox").css("height", +initialHeight + 20);
 
-    console.log($("#mainbox").css("height"));
+    //get radio value
+    var radioValue = $("input:radio[name=optionsRadios]:checked").val();
+    //change box size
+    //change header text
+    $("#boxLabel").html(radioValue + "px");
 
-    $("#submit").click(function(){
+
+    //change box size
+    $("input:radio[name=optionsRadios]").click(function(){
+        radioValue = $(this).val();
+        $("#mainbox").css("width", +radioValue + 10);
+        //rename header
+        $("#boxLabel").html(radioValue + "px");
+        //(re)make the iframe
+        if ($("#height").val() && $("#url").val()) {
+            makeIframe();    
+        }
+    });
+
+    function makeIframe(){
+        //get form values
         var height = $("#height").val();
         var url = $("#url").val();
+
+        //put values in iframe
         $("#iframe").attr('src', url);
         $("#iframe").attr('height', height);
-        $("#mainbox").css('height', (+height + 20));
-        $("#textBox").html('<iframe id="iframe" src="' + url + '" scrolling="no" frameborder="0" width="100%" height="' + height + '" overflow="hidden"><a href="' + url + '">Click here for an interactive.</a> </iframe>')
+        $("#iframe").attr('width', +radioValue)
+        $("#mainbox").css('height', (+height + 12));
+        $("#textBox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" width="' + +radioValue + 'px" height="' + height + 'px"><a href="' + url + '">View an interactive on a seperate page.</a> </iframe>');
+    }
 
-
+    $("#submit").click(function(){
+        makeIframe();
         return false;
 
     });
@@ -124,17 +161,3 @@ $(document).ready(function(){
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
