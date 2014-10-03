@@ -62,21 +62,21 @@
     <form class="form-horizontal-form-inline" role="form">
         <div class="form-group-lg">
             <div class="col-md-8">
-                <input type="text" class="form-control" id="url" placeholder="Enter URL" value="http://scottpham.github.io/1033-data/child_template.html">
+                <input type="text" class="form-control" id="url" placeholder="URL of Graphic" value="">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-3">
                 <div class="input-group">
-                  <input class="form-control" type="number" id="height" placeholder="Enter Height" value="400">
+                  <input class="form-control" type="number" id="height" placeholder="IFrame Height" value="">
                     <div class="input-group-addon">px</div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-1">
-                <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="submit" class="btn btn-primary">Preview</button>
             </div>
         </div>
     </form>
@@ -110,9 +110,6 @@
 <script>
 
 $(document).ready(function(){
-    //bump up mainbox height
-    var initialHeight = $("#mainbox").height();
-    $("#mainbox").css("height", +initialHeight + 20);
     
     //change header text
     function changeHeaderText(){
@@ -124,22 +121,16 @@ $(document).ready(function(){
     //change box size
     $("input:radio[name=optionsRadios]").click(function(){
 
-        var radioValue = $(this).val();
-        console.log(radioValue);   
-        makeIframe(radioValue); 
+        makeIframe(); 
     });
 
-    function makeIframe(radioValue){
+    function makeIframe(){
         //get form values
         var height = $("#height").val();
         var url = $("#url").val();
+        var radioValue = $("input:radio[name=optionsRadios]:checked").val();//note this is a string b/c the difference between 100% and 300px
 
-        //put values in iframe
-        $("#mainbox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" ' + radioValue + ' height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
-
-        console.log("" + radioValue + "");
-
-        //resize box
+        //change box width on radio button selection
         var radioID = $("input:radio[name=optionsRadios]:checked").attr("id");
         if(radioID=="mobile"){
            $("#mainbox").width(300); 
@@ -151,23 +142,33 @@ $(document).ready(function(){
             $("#mainbox").width("90%"); 
         }
 
+        //change mainbox height
+        $("#mainbox").css("height", +height + 10);
+
+        var width = $("#mainbox").width();
+
+        //write iframe for preview
+        $("#mainbox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" width="' + width + 'px" height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
+
         //put preview info in textbox
         $("#textBox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" ' + radioValue + ' height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
-
         //change header text
         changeHeaderText();
     }
 
     //get radio value
-    var radioValue = $("input:radio[name=optionsRadios]:checked").val();
     //make iframe on submit
     $("#submit").click(function(){
-        makeIframe(radioValue);
+        makeIframe();
         return false;
+        });
 
+    //bind window resize to label
+    $(window).bind("resize", function(){
+        makeIframe();
+            });
     
-
-    });
+    
 });
 
 </script>
