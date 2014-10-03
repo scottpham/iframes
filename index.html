@@ -22,7 +22,6 @@
 
     #iframe {
         overflow: hidden;
-        z-index: -100;
     }
 
     #url {
@@ -63,14 +62,14 @@
     <form class="form-horizontal-form-inline" role="form">
         <div class="form-group-lg">
             <div class="col-md-8">
-                <input type="text" class="form-control" id="url" placeholder="Enter URL" value="">
+                <input type="text" class="form-control" id="url" placeholder="Enter URL" value="http://scottpham.github.io/1033-data/child_template.html">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-3">
                 <div class="input-group">
-                  <input class="form-control" type="number" id="height" placeholder="Enter Height" value=''>
+                  <input class="form-control" type="number" id="height" placeholder="Enter Height" value="400">
                     <div class="input-group-addon">px</div>
                 </div>
             </div>
@@ -89,11 +88,11 @@
 </div>
  
 <label class="radio-inline">
-    <input type="radio" name="optionsRadios" id="mobile" value=300>Mobile(300px)</label>
+    <input type="radio" name="optionsRadios" id="mobile" value='width="300px"'>Mobile(300px)</label>
 <label class="radio-inline">        
-    <input type="radio" name="optionsRadios" id="article" value=622 checked>Article(622px)</label>
-<!--<label class="radio-inline">
-    <input type="radio" name="optionsRadios" id="fullWidth" value="100%">100%(use this with a phone or tablet)</label> -->
+    <input type="radio" name="optionsRadios" id="article" value='width="622px"' checked>Article(622px)</label>
+<label class="radio-inline">
+    <input type="radio" name="optionsRadios" id="fullWidth" value='width="100%"'>100%(use this with a phone or tablet)</label>
 
 
 <div class="row row-centered"> 
@@ -102,9 +101,8 @@
     </div>
 </div>
 <div class = "row row-centered">
-    <div class="col-lg-12 col-centered">
+    <div class="col-xs-12 col-centered">
         <div id="mainbox" class="center-block">
-            <iframe id="iframe" class="center-block" src="" scrolling="no" frameborder="0" width="622px" height="400px" overflow="hidden"></iframe>
         </div>
     </div>
 </div>
@@ -115,41 +113,59 @@ $(document).ready(function(){
     //bump up mainbox height
     var initialHeight = $("#mainbox").height();
     $("#mainbox").css("height", +initialHeight + 20);
-
-    //get radio value
-    var radioValue = $("input:radio[name=optionsRadios]:checked").val();
+    
     //change header text
-    $("#boxLabel").html(radioValue + "px");
-
+    function changeHeaderText(){
+        var liveDivSize = $("#mainbox").width();
+        $("#boxLabel").html("Width = " + liveDivSize + "px");
+    }
+    changeHeaderText();
 
     //change box size
     $("input:radio[name=optionsRadios]").click(function(){
-        radioValue = $(this).val();
-        $("#mainbox").css("width", +radioValue + 10);
-        //rename header
-        $("#boxLabel").html(radioValue + "px");
-        //(re)make the iframe
-        if ($("#height").val() && $("#url").val()) {
-            makeIframe();    
-        }
+
+        var radioValue = $(this).val();
+        console.log(radioValue);   
+        makeIframe(radioValue); 
     });
 
-    function makeIframe(){
+    function makeIframe(radioValue){
         //get form values
         var height = $("#height").val();
         var url = $("#url").val();
 
         //put values in iframe
-        $("#iframe").attr('src', url);
-        $("#iframe").attr('height', height);
-        $("#iframe").attr('width', +radioValue)
-        $("#mainbox").css('height', (+height + 12));
-        $("#textBox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" width="' + +radioValue + 'px" height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
+        $("#mainbox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" ' + radioValue + ' height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
+
+        console.log("" + radioValue + "");
+
+        //resize box
+        var radioID = $("input:radio[name=optionsRadios]:checked").attr("id");
+        if(radioID=="mobile"){
+           $("#mainbox").width(300); 
+        }
+        else if (radioID=="article"){
+           $("#mainbox").width(622); 
+        }
+        else {
+            $("#mainbox").width("90%"); 
+        }
+
+        //put preview info in textbox
+        $("#textBox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" ' + radioValue + ' height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
+
+        //change header text
+        changeHeaderText();
     }
 
+    //get radio value
+    var radioValue = $("input:radio[name=optionsRadios]:checked").val();
+    //make iframe on submit
     $("#submit").click(function(){
-        makeIframe();
+        makeIframe(radioValue);
         return false;
+
+    
 
     });
 });
