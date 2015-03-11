@@ -9,6 +9,9 @@ app.controller("iframeController", ["$scope", function($scope){
 	// dummy height
 	var height = 800;
 
+	var myIframe = '<iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>';
+	$scope.myIframe = myIframe;
+
 	// attach to scope
 	$scope.url = url;
 	$scope.height = height;
