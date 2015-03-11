@@ -60,30 +60,30 @@
 <body>
 
 <div ng-app="iframeApp" class="container">
-<section ng-controller="iframeController">
+<section ng-controller="iframeController as iframe">
 <div class="row">
 <div class="col-md-12">
     <h1 class="text-center">Iframe Generator</h2>
 </div>
-
+    <!-- URL -->
     <form class="form-horizontal-form-inline" role="form">
         <div class="form-group-lg">
             <div class="col-md-8">
-                <input type="text" class="form-control" id="url" placeholder="URL of Graphic" value={{url}}>
+                <input type="text" class="form-control" id="url" placeholder="URL of Graphic" ng-model="iframe.url" value={{iframe.url}}>
             </div>
         </div>
-
+        <!-- HEIGHT -->
         <div class="form-group">
             <div class="col-md-3">
                 <div class="input-group">
-                  <input class="form-control" type="number" id="height" placeholder="IFrame Height" value={{height}}>
+                  <input class="form-control" type="number" id="height" ng-model="iframe.height"placeholder="iFrame Height" value={{iframe.height}}>
                     <div class="input-group-addon">px</div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-1">
-                <button type="submit" id="submit" class="btn btn-primary">Preview</button>
+                <button class="btn btn-primary">Preview</button>
             </div>
         </div>
     </form>
@@ -93,7 +93,7 @@
 <div class="row-fluid">
     <span class="help-block">Iframe Code:</span>
         <textarea type="text" class="form-control" id="textBox" rows = 4>
-<iframe src="{{url}}" scrolling="no" frameborder="0" width=622px height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>
+<iframe src="{{iframe.url}}" scrolling="no" frameborder="0" width=622px height="{{iframe.height}}px"><a href="{{iframe.url}}">View an interactive on a separate page.</a> </iframe>
         </textarea>
 </div>
  
@@ -127,67 +127,67 @@
 
 <script>
 
-$(document).ready(function(){
+// $(document).ready(function(){
     
-    //change header text
-    function changeHeaderText(){
-        var liveDivSize = $("#mainbox").width();
-        $("#boxLabel").html("Width = " + liveDivSize + "px");
-    }
-    changeHeaderText();
+//     //change header text
+//     function changeHeaderText(){
+//         var liveDivSize = $("#mainbox").width();
+//         $("#boxLabel").html("Width = " + liveDivSize + "px");
+//     }
+//     changeHeaderText();
 
-    //change box size
-    $("input:radio[name=optionsRadios]").click(function(){
+//     //change box size
+//     $("input:radio[name=optionsRadios]").click(function(){
 
-        makeIframe(); 
-    });
+//         makeIframe(); 
+//     });
 
-    function makeIframe(){
-        //get form values
-        var height = $("#height").val();
-        var url = $("#url").val();
-        var radioValue = $("input:radio[name=optionsRadios]:checked").val();//note this is a string b/c the difference between 100% and 300px
+//     function makeIframe(){
+//         //get form values
+//         var height = $("#height").val();
+//         var url = $("#url").val();
+//         var radioValue = $("input:radio[name=optionsRadios]:checked").val();//note this is a string b/c the difference between 100% and 300px
 
-        //change box width on radio button selection
-        var radioID = $("input:radio[name=optionsRadios]:checked").attr("id");
-        if(radioID=="mobile"){
-           $("#mainbox").width(300); 
-        }
-        else if (radioID=="article"){
-           $("#mainbox").width(622); 
-        }
-        else {
-            $("#mainbox").width("90%"); 
-        }
+//         //change box width on radio button selection
+//         var radioID = $("input:radio[name=optionsRadios]:checked").attr("id");
+//         if(radioID=="mobile"){
+//            $("#mainbox").width(300); 
+//         }
+//         else if (radioID=="article"){
+//            $("#mainbox").width(622); 
+//         }
+//         else {
+//             $("#mainbox").width("90%"); 
+//         }
 
-        //change mainbox height
-        $("#mainbox").css("height", +height + 10);
+//         //change mainbox height
+//         $("#mainbox").css("height", +height + 10);
 
-        var width = $("#mainbox").width();
+//         var width = $("#mainbox").width();
 
-        //write iframe for preview
-        $("#mainbox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" width="' + width + 'px" height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
+//         //write iframe for preview
+//         $("#mainbox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" width="' + width + 'px" height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
 
-        //put preview info in textbox
-        $("#textBox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" ' + radioValue + ' height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
-        //change header text
-        changeHeaderText();
-    }
+//         //put preview info in textbox
+//         $("#textBox").html('<iframe src="' + url + '" scrolling="no" frameborder="0" ' + radioValue + ' height="' + height + 'px"><a href="' + url + '">View an interactive on a separate page.</a> </iframe>');
+//         //change header text
+//         changeHeaderText();
+//     }
 
-    //get radio value
-    //make iframe on submit
-    $("#submit").click(function(){
-        makeIframe();
-        return false;
-        });
+//     //get radio value
+//     //make iframe on submit
+//     $("#submit").click(function(){
+//         makeIframe();
+//         return false;
+//         });
 
-    //bind window resize to label
-    $(window).bind("resize", function(){
-        makeIframe();
-            });
+//     //bind window resize to label
+//     $(window).bind("resize", function(){
+//         makeIframe();
+//             });
     
     
-});
+// });
 
 </script>
 
