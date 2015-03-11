@@ -9,8 +9,8 @@ app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 	// dummy height
 	var height = 800;
 
-	var myIframe = '<iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>';
-	
+	var myIframe = $sce.trustAsHtml('<iframe src=' + url + ' scrolling="no" frameborder="0" width="622px" height=' + height + 'px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>');
+
 	$scope.myIframe = myIframe;
 
 	// attach to scope

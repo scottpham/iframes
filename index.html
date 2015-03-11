@@ -89,6 +89,7 @@
     </form>
 </div>
 
+<!-- text box output -->
 <div class="row-fluid">
     <span class="help-block">Iframe Code:</span>
         <textarea type="text" class="form-control" id="textBox" rows = 4>
@@ -96,6 +97,7 @@
         </textarea>
 </div>
  
+ <!-- buttons -->
 <label class="radio-inline">
     <input type="radio" name="optionsRadios" id="mobile" value='width="300px"'>Mobile(300px)</label>
 <label class="radio-inline">        
@@ -103,15 +105,20 @@
 <label class="radio-inline">
     <input type="radio" name="optionsRadios" id="fullWidth" value='width="100%"'>100%(resize browser window to change)</label>
 
-
+<!-- preview -->
 <div class="row row-centered"> 
     <div class="col-lg-12 col-centered">
         <h2 class="text-center" id="boxLabel">622px wide</h2>
     </div>
 </div>
+<!-- row -->
 <div class = "row row-centered">
+    <!-- column -->
     <div class="col-xs-12 col-centered">
-        <div id="mainbox" class="center-block">
+        <!-- box for iframe -->
+        <div id="mainbox" class="center-block" style="height:{{height}}" >
+        <!-- actual iframe -->
+        <div ng-bind-html="myIframe"></div>
 <!--  <iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe> -->
         </div>
     </div>
