@@ -57,7 +57,8 @@
 <body>
 
 <div ng-app="iframeApp" class="container">
-<div ng-controller="iframeController" class="row">
+<section ng-controller="iframeController">
+<div class="row">
 <div class="col-md-12">
     <h1 class="text-center">Iframe Generator</h2>
 </div>
@@ -65,14 +66,14 @@
     <form class="form-horizontal-form-inline" role="form">
         <div class="form-group-lg">
             <div class="col-md-8">
-                <input type="text" class="form-control" id="url" placeholder="URL of Graphic" value="">
+                <input type="text" class="form-control" id="url" placeholder="URL of Graphic" value={{url}}>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-3">
                 <div class="input-group">
-                  <input class="form-control" type="number" id="height" placeholder="IFrame Height" value="">
+                  <input class="form-control" type="number" id="height" placeholder="IFrame Height" value={{height}}>
                     <div class="input-group-addon">px</div>
                 </div>
             </div>
@@ -87,7 +88,9 @@
 
 <div class="row-fluid">
     <span class="help-block">Iframe Code:</span>
-        <textarea type="text" class="form-control" id="textBox" rows = 4></textarea>
+        <textarea type="text" class="form-control" id="textBox" rows = 4>
+         <iframe src="{{url}}" scrolling="no" frameborder="0" width=622px height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>
+        </textarea>
 </div>
  
 <label class="radio-inline">
@@ -106,8 +109,11 @@
 <div class = "row row-centered">
     <div class="col-xs-12 col-centered">
         <div id="mainbox" class="center-block">
+ <iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>
         </div>
     </div>
+
+</section>    
 </div>
 
 <script>
