@@ -15,6 +15,9 @@
     <!-- angular cdn -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
 
+    <!-- add sanitize -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-sanitize.js"></script>
+
     <style>
     #mainbox {
         border-style: solid;
@@ -89,7 +92,7 @@
 <div class="row-fluid">
     <span class="help-block">Iframe Code:</span>
         <textarea type="text" class="form-control" id="textBox" rows = 4>
-         <iframe src="{{url}}" scrolling="no" frameborder="0" width=622px height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>
+<iframe src="{{url}}" scrolling="no" frameborder="0" width=622px height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>
         </textarea>
 </div>
  
@@ -109,7 +112,7 @@
 <div class = "row row-centered">
     <div class="col-xs-12 col-centered">
         <div id="mainbox" class="center-block">
- <iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>
+<!--  <iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe> -->
         </div>
     </div>
 

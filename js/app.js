@@ -1,7 +1,7 @@
 // declare module
-var app = angular.module("iframeApp", []);
+var app = angular.module("iframeApp", ['ngSanitize']);
 
-app.controller("iframeController", ["$scope", function($scope){
+app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 
 	// dummy data
 	// dummy url
@@ -10,6 +10,7 @@ app.controller("iframeController", ["$scope", function($scope){
 	var height = 800;
 
 	var myIframe = '<iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>';
+	
 	$scope.myIframe = myIframe;
 
 	// attach to scope
@@ -19,5 +20,4 @@ app.controller("iframeController", ["$scope", function($scope){
 	console.log($scope);
 
 	}//end of function
-
 ]);//end of controller config 
