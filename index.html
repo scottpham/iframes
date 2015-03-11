@@ -116,10 +116,9 @@
     <!-- column -->
     <div class="col-xs-12 col-centered">
         <!-- box for iframe -->
-        <div id="mainbox" class="center-block" style="height:{{height}}" >
+        <div id="mainbox" ng-bind-html="myIframe" class="center-block" style="height:{{height}}" >
         <!-- actual iframe -->
-        <div ng-bind-html="myIframe"></div>
-<!--  <iframe ng-src={{url}} scrolling="no" frameborder="0" width="622px" height="{{height}}px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe> -->
+
         </div>
     </div>
 
