@@ -7,6 +7,7 @@ app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 	this.url = "http://scottpham.github.io/birdstrike-charts/child.html";
 	this.height = 600;
 	this.myIframe = $sce.trustAsHtml('<iframe src=' + this.url + ' scrolling="no" frameborder="0" width="622px" height=' + this.height + 'px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>');
+	this.width = 622;
 	
 	var that = this;
 
@@ -20,10 +21,6 @@ app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 
 	});
 
-
-	
-
-	console.log($scope);
 
 	}//end of function
 ]);//end of controller config 
