@@ -22,8 +22,8 @@
     #mainbox {
         border-style: solid;
         border-width: 5px;
-        width: 630px;
-        height: 400px;    
+       /* width: 630px;
+        height: 400px;*/    
     }
 
     #iframe {
@@ -81,27 +81,44 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+<!--         <div class="form-group">
             <div class="col-md-1">
                 <button class="btn btn-primary">Preview</button>
             </div>
-        </div>
+        </div> -->
     </form>
 </div>
 
 <!-- text box output -->
 <div class="row-fluid">
     <span class="help-block">Iframe Code:</span>
-        <textarea type="text" class="form-control" id="textBox" rows = 4>
-<iframe src="{{iframe.url}}" scrolling="no" frameborder="0" width=622px height="{{iframe.height}}px"><a href="{{iframe.url}}">View an interactive on a separate page.</a> </iframe>
+        <textarea type="text" class="form-control" id="textBox" rows=4>
+<iframe src="{{iframe.url}}" scrolling="no" frameborder="0" width="{{iframe.width}}px" height="{{iframe.height}}px"><a href="{{iframe.url}}" target="_blank">View an interactive on a separate page.</a> </iframe>
         </textarea>
 </div>
  
  <!-- buttons -->
-<label class="radio-inline">
-    <input type="radio" name="optionsRadios" id="mobile" value='width="300px"'>Mobile</label>
-<label class="radio-inline">        
-    <input type="radio" name="optionsRadios" id="article" value='width="622px"' checked>Article(622px)</label>
+ <div class="row">
+    <div class="col-xs-4">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <input type="radio" name="options" ng-model="iframe.width" id="mobile" ng-value="300"> Mobile Width:
+            </span>
+
+            <input type="number" class="form-control" ng-model="iframe.width" ng-value="300">
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <input type="radio" name="options" id="article" ng-value="{{iframe.width}}" ng-model="iframe.width" checked> Article Width:
+            </span>
+            <input type="number" ng-model="iframe.width" class="form-control">
+        </div>
+    </div>
+</div>
+
 
    
 
@@ -116,8 +133,9 @@
     <!-- column -->
     <div class="col-xs-12 col-centered">
         <!-- box for iframe -->
-        <div id="mainbox" ng-bind-html="iframe.myIframe" ng-model="iframe.myIframe" class="center-block" style="height:{{iframe.height + 10}}" >
+        <div id="mainbox" ng-bind-html="iframe.myIframe"  class="center-block" style="height:{{iframe.height + 10}};width:{{iframe.width + 10}}" >
         <!-- actual iframe -->
+        <!-- ng-model="iframe.myIframe" -->
 
         </div>
     </div>

@@ -8,16 +8,22 @@ app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 	this.height = 600;
 	this.myIframe = $sce.trustAsHtml('<iframe src=' + this.url + ' scrolling="no" frameborder="0" width="622px" height=' + this.height + 'px"><a href="{{url}}">View an interactive on a separate page.</a> </iframe>');
 	this.width = 622;
+
+	this.widthPlus = +this.width + 10;
+
+	this.mobileWidth=300;
 	
 	var that = this;
 
-	$scope.$watchGroup(['iframe.url', 'iframe.height'], function(newVal, oldVal){
+	$scope.$watchGroup(['iframe.url', 'iframe.height', 'iframe.width'], function(newVal, oldVal){
 		
 		console.log(newVal);
 
 		if(!newVal) return;
 
-		return that.myIframe = $sce.trustAsHtml('<iframe src=' + that.url + ' scrolling="no" frameborder="0" width="622px" height=' + that.height + 'px"><a href="{{that.url}}">View an interactive on a separate page.</a> </iframe>');
+		that.myIframe = $sce.trustAsHtml('<iframe src=' + that.url + ' scrolling="no" frameborder="0" width="' + that.width + '" height=' + that.height + 'px"><a href="{{that.url}}">View an interactive on a separate page.</a> </iframe>');
+
+		that.widthPlus = +this.width + 10;
 
 	});
 
