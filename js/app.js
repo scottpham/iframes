@@ -26,8 +26,14 @@ app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 		if(!newVal) return;
 		// update widthPlus for 
 		that.widthPlus = +this.width + 10;
-		// dump out if height is zero or url is empty
-		if (!that.height || that.url.length<1) return;
+		if (!that.height){
+			that.myIframe="";
+			return;
+		}
+		// dump out if url is empty
+		if (that.url.length<1) return;
+
+
 
 		that.myIframe = $sce.trustAsHtml('<iframe src=' + that.url + ' scrolling="no" frameborder="0" width="' + that.width + '" height=' + that.height + 'px"><a href="{{that.url}}">View an interactive on a separate page.</a> </iframe>');
 	
