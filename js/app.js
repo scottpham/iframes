@@ -16,7 +16,6 @@ app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 		this.myIframe = "";
 	}
 	
-	
 	//pass cope to watchgroup
 	var that = this;
 
@@ -33,12 +32,7 @@ app.controller("iframeController", ["$scope",'$sce', function($scope, $sce){
 		// dump out if url is empty
 		if (that.url.length<1) return;
 
-
-
 		that.myIframe = $sce.trustAsHtml('<iframe src=' + that.url + ' scrolling="no" frameborder="0" width="' + that.width + '" height=' + that.height + 'px"><a href="{{that.url}}">View an interactive on a separate page.</a> </iframe>');
-	
-
-		
 
 	});
 
